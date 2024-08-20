@@ -24,7 +24,7 @@ userRouter.post("/useradmin/signup", async (req, res) => {
 
     const user = new UserModel(payload);
     user.save();
-    res.send({ msg: "User registered successfully!", user });
+    res.send({ msg: "Registered successfully!", user });
   } catch (err) {
     console.log(err);
     res.status(500).send({ msg: "Error" });

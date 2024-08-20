@@ -1,24 +1,28 @@
 const jwt = require("jsonwebtoken");
 
 const authenticate = (req, res, next) => {
+  const token = req.headers["authorization"].split(" ")[1];
 
-const token = req.headers['authorization'].split(" ")[1];
-
-console.log("token", token)
+  console.log("token", token);
   if (!token) {
-    return res.status(403).send({ message: 'No token provided!, Please Login first' });
+    return res
+      .status(403)
+      .send({ message: "No token provided!, Please Login first" });
   }
 
-  jwt.verify(token, 'your_secret_key', (err, decoded) => {
+  jwt.verify(token, "your_secret_key", (err, decoded) => {
     if (err) {
-      return res.status(401).send({ message: 'You are not authorized!, please login first!' });
+      return res
+        .status(401)
+        .send({ message: "You are not authorized!, please login first!" });
     }
-
-    req.userId = decoded.id;
-    req.useremail = decoded.email;
-    // req.role=decoded.role;
+    // console.log("decoded", decoded);
+    const userID = decoded.id;
+    useremail = decoded.email;
+    req.body.userID = userID;
+    // console.log("userID", userID);
     next();
-});
+  });
 };
 
 module.exports = { authenticate };
