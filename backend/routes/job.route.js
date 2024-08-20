@@ -4,19 +4,18 @@ const { JobsModel } = require("../models/job.model");
 const {authenticate}=require("../middlewares/authenticate.middleware");
 const jobRouter = express.Router();
 
-// jobRouter.get("/user/get/jobs",authenticate, async (req, res) => {
-//     let query = req.query;
-//     try {
-//       const jobs = await JobModel.find();
-//       res.send(jobs);
-//     } catch (err) {
-//       console.log(err);
-//       res.status(500).send({ msg: "Failed to fetch job data!" });
-//     }
-//   });
+jobRouter.get("/user/get/jobs", async (req, res) => {
+    try {
+      const jobs = await JobsModel.find();
+      res.send(jobs);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ msg: "Failed to fetch job data!" });
+    }
+  });
 
 
-jobRouter.post("/admin/post/jobs",authenticate, async (req, res) => {
+jobRouter.post("/admin/post/jobs", async (req, res) => {
     const jobdata = req.body;
     console.log("jobdata", jobdata);
     try {
@@ -32,7 +31,7 @@ jobRouter.post("/admin/post/jobs",authenticate, async (req, res) => {
     }
   });
 
-//   jobRouter.post("/admin/get/jobs",authenticate, async (req, res) => {
+//   jobRouter.get("/admin/get/jobs",authenticate, async (req, res) => {
     
 //   });
 
